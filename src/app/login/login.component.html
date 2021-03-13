@@ -1,0 +1,21 @@
+<h1>Login</h1>
+<form class="m-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <div class="form-group">
+    <label for="">Email</label>
+    <input type="text" class="form-control" formControlName="email" [class.is-invalid]="email.invalid && email.touched">
+    <small [class.d-none]="email.valid || email.untouched" class="text-danger">Enter your email</small>
+  </div>
+
+  <div class="form-group">
+    <label for="">Password</label>
+    <input type="password" formControlName="password" class="form-control" [class.is-invalid]="password.invalid && password.touched">
+    <small [class.d-none]="password.valid || password.untouched" class="text-danger">Enter a password</small>
+  </div>
+
+  <div class="row">
+    <div class="col-8"><button class="btn btn-primary m-3 btn-lg" [disabled]="!loginForm.valid">Login</button></div>
+    <div class="col-4"><button (click)="goToSignUp()" class="btn btn-link btn-lg m-3">Sign up</button></div>
+  </div>
+
+</form>

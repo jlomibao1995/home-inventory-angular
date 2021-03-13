@@ -1,0 +1,32 @@
+<h1>Sign up</h1>
+<form class="m-3" [formGroup]="signupForm">
+    <div class="form-group">
+        <label for="">Email</label>
+        <input type="text" class="form-control" formControlName="email" 
+        [class.is-invalid]="signupForm.get('email').invalid && signupForm.get('email').touched">
+        <small [class.d-none]="signupForm.get('email').valid || signupForm.get('email').untouched" class="text-danger">Enter your email</small>
+    </div>
+
+    <div class="form-group">
+        <label for="">Password</label>
+        <input type="password" class="form-control" formControlName="password">
+    </div>
+
+    <div class="form-group">
+        <label for="">Confirm Password</label>
+        <input type="password" class="form-control" formControlName="confirmPassword">
+    </div>
+
+    <div class="form-group">
+        <label for="">Name</label>
+        <input type="text" class="form-control" formControlName="name" 
+        [class.is-invalid]="signupForm.get('name').invalid && signupForm.get('name').touched">
+        <small [class.d-none]="signupForm.get('name').valid || signupForm.get('name').untouched" class="text-danger">Enter your name</small>
+    </div>
+    
+    <div class="row">
+        <div class="col-8"><button class="btn btn-primary m-3 btn-lg">Submit</button></div>
+        <div class="col-4"><button (click)="goToLogin()" class="btn btn-link btn-lg m-3">Login</button></div>
+      </div>
+
+</form>
