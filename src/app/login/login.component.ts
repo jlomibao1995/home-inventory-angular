@@ -1,3 +1,4 @@
+import { LoginService } from './../login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -9,14 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-
-  constructor(private _router: Router, private route: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private _router: Router, private route: ActivatedRoute,
+     private fb: FormBuilder, private _loginService: LoginService ) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+    sessionStorage.setItem('token', ' ');
   }
 
   get email() {
@@ -31,8 +33,10 @@ export class LoginComponent implements OnInit {
     this._router.navigate(['/signup'], {relativeTo: this.route})
   }
 
-  onSubmit() {
-
+  login() {
+    this._loginService.authenticate(
+      this.loginForm.get('email').value, 
+      this.loginForm.get('password').value);
   }
 
 }

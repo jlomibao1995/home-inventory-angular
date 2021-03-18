@@ -1,6 +1,17 @@
 
 <p class="lead">This app is for users who want to keep track of their home inventory.</p>
 
+<h1>Greeting</h1>
+
+<div [hidden]="!authenticated()">
+    <p>The email is </p>
+    <p>Thank you for loggin in with Home nVentory!</p>
+</div>
+
+<div [hidden]="authenticated()">
+    <p>Login to see your greeting</p>
+</div>
+
 <div class="text-center">
     <button (click)="goToLogin()" class="btn btn-primary btn-lg m-3">Login</button>
     <button (click)="goToSignUp()" class="btn btn-secondary btn-lg m-3">Sign up</button>
