@@ -34,9 +34,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this._loginService.authenticate(
-      this.loginForm.get('email').value, 
-      this.loginForm.get('password').value);
+    this._loginService.authenticate({
+      email: this.loginForm.get('email').value,
+      password: this.loginForm.get('password').value
+    }, () => this._router.navigateByUrl('/'));
   }
 
 }

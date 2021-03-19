@@ -42,9 +42,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of items; let i = index">
+            <tr *ngFor="let item of user.items; let i = index">
                 <td>{{item.id}}</td>
-                <td>{{item.category}}</td>
+                <td>{{item.category.categoryName}}</td>
                 <td>{{item.itemName}}</td>
                 <td>{{item.price}}</td>
                 <td>{{item.owner}}</td>

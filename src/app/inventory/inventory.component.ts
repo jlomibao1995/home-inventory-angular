@@ -1,3 +1,5 @@
+import { User } from './../User';
+import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,16 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-  public items = [
-    {id: 1, category: 1, itemName: "blender", price: 29.99, owner: "cprg352+anne@gmail.com"},
-    {id: 1, category: 1, itemName: "blender", price: 29.99, owner: "cprg352+anne@gmail.com"},
-    {id: 1, category: 1, itemName: "blender", price: 29.99, owner: "cprg352+anne@gmail.com"},
-    {id: 1, category: 1, itemName: "blender", price: 29.99, owner: "cprg352+anne@gmail.com"}
-  ]
+  public user: any;
+  public errorMsg: any;
 
-  constructor() { }
+  constructor(private _userService: UserService) { }
 
   ngOnInit(): void {
+    this._userService.getUser("jane@gmail.com").subscribe(data => this.user = data,
+      error => this.errorMsg = error);
+      console.log(this.user);
   }
 
 }

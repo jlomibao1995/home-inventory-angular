@@ -1,9 +1,9 @@
 export class User {
 
-    constructor(public name: String,
+    constructor(public id: number,
         public email: String,
         public active: boolean,
-        public id: number,
+        public name: String,
         public password: String,
         public role: {
              id: number,
