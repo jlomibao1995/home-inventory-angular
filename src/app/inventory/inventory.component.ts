@@ -14,9 +14,9 @@ export class InventoryComponent implements OnInit {
   constructor(private _userService: UserService) { }
 
   ngOnInit(): void {
-    this._userService.getUser("jane@gmail.com").subscribe(data => this.user = data,
+    let email = localStorage.getItem('email');
+    this._userService.getUser(email).subscribe(data => this.user = data,
       error => this.errorMsg = error);
-      console.log(this.user);
   }
 
 }
