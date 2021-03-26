@@ -5,18 +5,18 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class LoginService implements OnInit{
+export class LoginService{
     authenticated: boolean = false;
     _url = 'http://localhost:8080/inventory/api/v1/authenticate';
 
     constructor(private _http: HttpClient) { }
 
-    ngOnInit(): void {
-        let credentials = JSON.parse(localStorage.getItem('currentUser'))
-
-        if (credentials){
-            this.authenticated = true;
+    isAuthenticated (){
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser){
+            return true;
         }
+        return false;
     }
 
     authenticate(credentials, callback) {

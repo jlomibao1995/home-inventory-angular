@@ -3,6 +3,7 @@ import { LoginService } from './../login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-home-page',
@@ -10,14 +11,22 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  user: User;
+  user: any;
+  public errorMsg: any;
 
   constructor(private _router: Router, private route: ActivatedRoute, 
-    private _http: HttpClient, private _loginService: LoginService) {
-      // _http.get('http://localhost:8080/inventory/api/v1/user').subscribe( data => this.user = data);
+    private _http: HttpClient, private _loginService: LoginService,
+    private _userService: UserService) {
      }
 
   ngOnInit(): void {
+    let email = localStorage.getItem('email');
+    this._userService.getUser(email).subscribe(data => this.user = data,
+      error => this.errorMsg = error);
+  }
+
+  authenticated(){
+    return this._loginService.isAuthenticated();
   }
 
   goToLogin() {
@@ -26,10 +35,6 @@ export class HomePageComponent implements OnInit {
 
   goToSignUp() {
     this._router.navigate(['/signup'], {relativeTo: this.route})
-  }
-
-  authenticated(){
-    return this._loginService.authenticated;
   }
   
   goToInventory() {
