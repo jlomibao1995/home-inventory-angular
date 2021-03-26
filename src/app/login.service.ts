@@ -10,6 +10,7 @@ export class LoginService implements OnInit{
     _url = 'http://localhost:8080/inventory/api/v1/authenticate';
 
     constructor(private _http: HttpClient) { }
+
     ngOnInit(): void {
         let credentials = JSON.parse(localStorage.getItem('currentUser'))
 

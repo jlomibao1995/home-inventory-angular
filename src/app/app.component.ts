@@ -22,6 +22,11 @@ export class AppComponent{
     }
 
     authenticated(){
-      return this._loginService.authenticated;
+      let credentials = JSON.parse(localStorage.getItem('currentUser'));
+
+      if (credentials){
+        return true;
+      }
+      return false;
     }
 }

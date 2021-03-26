@@ -32,5 +32,12 @@ export class HomePageComponent implements OnInit {
     return this._loginService.authenticated;
   }
   
+  goToInventory() {
+    this._router.navigate(['/inventory'], {relativeTo: this.route})
+  }
+
+  goToMyAccount() {
+    this._router.navigate(['/myaccount'], {relativeTo: this.route})
+  }
 
 }
