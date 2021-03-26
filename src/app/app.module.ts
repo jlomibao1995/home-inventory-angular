@@ -33,8 +33,8 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
   providers: [LoginService, 
     UserService, 
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }],
+    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

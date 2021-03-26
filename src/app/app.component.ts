@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
   title = 'home-inventory';
 
   constructor(private _loginService: LoginService, private _http:HttpClient,
@@ -16,10 +16,12 @@ export class AppComponent {
 
     }
 
-    // logout(){
-    //   this._http.post<any>('logout', {}).finally(() => {
-    //     this._loginService.authenticated = false;
-    //     this._router.navigateByUrl('/login');
-    //   }).subscribe();
-    // }
+    logout(){
+      this._loginService.logout();
+      this._router.navigateByUrl("/");
+    }
+
+    authenticated(){
+      return this._loginService.authenticated;
+    }
 }

@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this._loginService.authenticate({
       email: this.loginForm.get('email').value,
       password: this.loginForm.get('password').value
-    }, () => this._router.navigateByUrl('/'));
+    }, () => this._router.navigateByUrl('/inventory'));
   }
 
 }
