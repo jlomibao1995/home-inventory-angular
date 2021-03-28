@@ -2,8 +2,8 @@
 <p class="lead">This app is for users who want to keep track of their home inventory</p>
 
 <div [hidden]="!authenticated()">
-    <p>Hello {{user.name}}</p>
-    <p>Thank you for logging in with Home nVentory!</p>
+    <p class="lead">Hello {{user.name}},</p>
+    <p class="lead">Thank you for logging in with Home nVentory!</p>
 
     <div class="text-center">
         <button (click)="goToInventory()" class="btn btn-primary btn-lg m-3">Inventory</button>

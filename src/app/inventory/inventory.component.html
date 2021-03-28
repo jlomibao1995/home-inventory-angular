@@ -8,25 +8,29 @@
     </div>
 
     <div class="collapse m-5" id="addForm">
-        <form action="">
+        <form [formGroup]="itemForm" (ngSubmit)="addItem()">
             <div class="form-group">
                 <label for="">Item name</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" formControlName="itemName" [class.is-invalid]="itemName.invalid && itemName.touched">
+                <small [class.d-none]="itemName.valid || itemName.untouched" class="text-danger">Enter your item's name</small>
             </div>
             <div class="form-group">
                 <label for="">Price</label>
-                <input type="number" class="form-control">
+                <input type="number" class="form-control" formControlName="price" [class.is-invalid]="price.invalid && price.touched">
+                <small [class.d-none]="price.valid || price.untouched" class="text-danger">Enter your item's price</small>
             </div>
             <div class="mb-3 form-group">
                 <label for="">Category</label>
-                <select class="form-select">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                <select class="form-select" formControlName="category" [class.is-invalid]="category.invalid && category.touched">
+                    <option value="Bedroom">Bedroom</option>
+                    <option value="Living room">Living room</option>
+                    <option value="Kitchen">Kitchen</option>
+                    <option value="Garage">Garage</option>
                 </select>
+                <small [class.d-none]="category.valid || category.untouched" class="text-danger">Enter your item's category</small>
             </div>
 
-            <input type="submit" value="Add item" class="btn btn-primary m-3">
+            <input [disabled]="itemForm.invalid" type="submit" value="Add item" class="btn btn-primary m-3">
         </form>
     </div>
 
@@ -42,7 +46,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of user.items; let i = index">
+            <tr *ngFor="let item of items; let i = index">
                 <td>{{item.id}}</td>
                 <td>{{item.category.categoryName}}</td>
                 <td>{{item.itemName}}</td>

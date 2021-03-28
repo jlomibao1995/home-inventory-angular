@@ -19,8 +19,6 @@ export class UserService {
 
   createNewAccount(user){
     const headers = { 'content-type': 'application/json'};
-    const body=JSON.stringify(user);
-    console.log(body);
 
     return this._http.post<any>(this._url, user, {'headers':headers})
     .pipe(catchError(this.errorHandler));
