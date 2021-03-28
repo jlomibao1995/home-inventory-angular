@@ -1,4 +1,3 @@
-import { User } from './../User';
 import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,3 +19,4 @@ export class InventoryComponent implements OnInit {
   }
 
 }
+``

@@ -4,11 +4,12 @@
 <div [hidden]="!authenticated()">
     <p>Hello {{user.name}}</p>
     <p>Thank you for logging in with Home nVentory!</p>
-</div>
 
-<div class="text-center" [hidden]="!authenticated()">
-    <button (click)="goToInventory()" class="btn btn-primary btn-lg m-3">Inventory</button>
-    <button (click)="goToMyAccount()" class="btn btn-secondary btn-lg m-3">My Account</button>
+    <div class="text-center">
+        <button (click)="goToInventory()" class="btn btn-primary btn-lg m-3">Inventory</button>
+        <button (click)="goToMyAccount()" class="btn btn-secondary btn-lg m-3">My Account</button>
+    </div>
+    
 </div>
 
 <div class="text-center" [hidden]="authenticated()">

@@ -1,6 +1,8 @@
 import { User } from './User';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,4 +16,18 @@ export class UserService {
     let requestResource = this._url + "/"+ email;
     return this._http.get<User>(requestResource, email);
   }
+
+  createNewAccount(user){
+    const headers = { 'content-type': 'application/json'};
+    const body=JSON.stringify(user);
+    console.log(body);
+
+    return this._http.post<any>(this._url, user, {'headers':headers})
+    .pipe(catchError(this.errorHandler));
+  }
+
+  errorHandler(error : HttpErrorResponse){
+    return throwError(error);
+  }
+
 }

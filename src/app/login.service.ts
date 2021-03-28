@@ -13,7 +13,7 @@ export class LoginService{
 
     isAuthenticated (){
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser){
+        if (currentUser != null){
             return true;
         }
         return false;
