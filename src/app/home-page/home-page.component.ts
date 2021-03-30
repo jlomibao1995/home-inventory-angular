@@ -20,8 +20,7 @@ export class HomePageComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    let email = localStorage.getItem('email');
-    this._userService.getUser(email).subscribe(data => this.user = data,
+    this._userService.getUser().subscribe(data => this.user = data,
       error => this.errorMsg = error);
   }
 

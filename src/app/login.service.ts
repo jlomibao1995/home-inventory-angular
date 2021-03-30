@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,11 +10,11 @@ export class LoginService{
     authenticated: boolean = false;
     _url = 'http://localhost:8080/inventory/api/v1/authenticate';
 
-    constructor(private _http: HttpClient) { }
+    constructor(private _http: HttpClient, private _cookieService: CookieService) { }
 
     isAuthenticated (){
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser != null){
+        let currentUser = this._cookieService.get('currentUser');
+        if (currentUser){
             return true;
         }
         return false;
@@ -30,8 +31,8 @@ export class LoginService{
                 console.log(response);
                 this.authenticated = true;
                 credentials.authdata = window.btoa(credentials.email + ':' + credentials.password);
-                localStorage.setItem('currentUser', JSON.stringify(credentials));
-                localStorage.setItem('email', credentials.email);
+                this._cookieService.set('currentUser', JSON.stringify(credentials), 1);
+                this._cookieService.set('email', credentials.email, 1);
             } else {
                 this.authenticated = false;
             }
@@ -41,8 +42,7 @@ export class LoginService{
     }
 
     logout(){
-        localStorage.setItem('currentUser', null);
-        localStorage.setItem('email', null);
+        this._cookieService.deleteAll();
         this.authenticated = false;
     }
 }

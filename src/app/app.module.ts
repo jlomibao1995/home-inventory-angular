@@ -14,6 +14,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { XhrInterceptor } from './helpers/xhr.interceptor';
 import { BasicAuthInterceptor } from './helpers/basic-auth.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
   providers: [LoginService, 
     UserService, 
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    CookieService],
     //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

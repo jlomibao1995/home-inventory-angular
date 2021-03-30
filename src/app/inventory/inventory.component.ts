@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { ItemService } from './../item.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +17,7 @@ export class InventoryComponent implements OnInit {
   private successMessg: String;
 
   constructor(private _fb: FormBuilder, private _itemService: ItemService, 
-    private _router: Router) { }
+    private _router: Router, private _cookieService: CookieService) { }
 
   get itemName() {
     return this.itemForm.get('itemName');
@@ -31,8 +32,8 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let email = localStorage.getItem('email');
-    this._itemService.getItems(email).subscribe(data => this.items = data,
+    let email = this._cookieService.get('email');
+    this._itemService.getItems().subscribe(data => this.items = data,
       error => this.errorMsg = error);
 
     this.itemForm = this._fb.group({
@@ -50,7 +51,7 @@ export class InventoryComponent implements OnInit {
         categoryName: this.category.value
       },
       user: {
-        email: localStorage.getItem('email')
+        email: this._cookieService.get('email')
       }
     }
 
