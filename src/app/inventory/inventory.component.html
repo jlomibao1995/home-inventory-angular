@@ -9,11 +9,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Are you sure you want to delete item?
+          Are you sure you want to delete item {{itemToDelete}}?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-danger" (click)="deleteItem(1)">Delete</button>
+          <button type="button" class="btn btn-danger" (click)="deleteItem()">Delete</button>
         </div>
       </div>
     </div>
@@ -78,7 +78,6 @@
                 <th>Category</th>
                 <th>Item Name</th>
                 <th>Price</th>
-                <th>Owner</th>
                 <th></th>
             </tr>
         </thead>
@@ -89,8 +88,7 @@
                 <td>{{item.category.categoryName}}</td>
                 <td>{{item.itemName}}</td>
                 <td>{{item.price}}</td>
-                <td>{{item.owner}}</td>
-                <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteItemModal">
+                <td><button class="btn btn-danger" (click)="confirmDelete(item.id)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-trash" viewBox="0 0 16 16">
                             <path

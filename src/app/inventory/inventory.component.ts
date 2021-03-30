@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ItemService } from './../item.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import * as $ from "jquery";
+import * as bootstrap from "bootstrap"
 
 @Component({
   selector: 'app-inventory',
@@ -17,6 +17,8 @@ export class InventoryComponent implements OnInit {
   public message: String;
   public success: Boolean = false;
   public editMode: Boolean = false;
+  public itemToDelete: any;
+  private deleteModal: any;
 
   constructor(private _fb: FormBuilder, private _itemService: ItemService, 
     private _router: Router, private _cookieService: CookieService,
@@ -35,6 +37,11 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.deleteModal = new bootstrap.Modal(document.getElementById('deleteItemModal'), {
+      backdrop: true,
+      keyboard: true,
+      focus: true
+    });
 
     this._itemService.getItems().subscribe(data => {
       this.success = true;
@@ -80,13 +87,14 @@ export class InventoryComponent implements OnInit {
       error => this.message = 'Item could not be added. ' + error.error.message);
   }
 
-  deleteItem(itemId){
-    this._itemService.deleteItem(itemId).subscribe(response => {
+  deleteItem(){
+    this._itemService.deleteItem(this.itemToDelete).subscribe(response => {
       this.ngOnInit();
       this.success = true;
       this.message = 'Item deleted';
     },
     error => this.message = 'Could not delete item. ' + error.error.message);
+    this.deleteModal.hide();
   }
 
   onEdit(item:any){
@@ -107,7 +115,7 @@ export class InventoryComponent implements OnInit {
     let price = this.editForm.get('price').value;
 
     this._itemService.updateItem(id, itemName, price)
-    .subscribe(responce => {
+    .subscribe(response => {
       this.ngOnInit();
       this.message = 'Item changes saved';
       this.success = true;
@@ -117,7 +125,9 @@ export class InventoryComponent implements OnInit {
   }
 
   confirmDelete(itemId){
-    //$('#deleteItemModal').appendTo("body");
-    
+    this.itemToDelete = itemId;
+    this.deleteModal.show();
+    $("#deleteItemModal").appendTo("body");
+
   }
 }
