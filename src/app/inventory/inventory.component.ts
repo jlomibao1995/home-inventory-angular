@@ -1,5 +1,5 @@
 import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ItemService } from './../item.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from './../user.service';
@@ -13,11 +13,12 @@ import { Component, OnInit } from '@angular/core';
 export class InventoryComponent implements OnInit {
   public itemForm: FormGroup;
   public items: any;
-  public errorMsg: any;
-  private successMessg: String;
+  public message: String;
+  public success: Boolean = false;
 
   constructor(private _fb: FormBuilder, private _itemService: ItemService, 
-    private _router: Router, private _cookieService: CookieService) { }
+    private _router: Router, private _cookieService: CookieService,
+    private _route: ActivatedRoute) { }
 
   get itemName() {
     return this.itemForm.get('itemName');
@@ -32,14 +33,20 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let email = this._cookieService.get('email');
-    this._itemService.getItems().subscribe(data => this.items = data,
-      error => this.errorMsg = error);
+    this._itemService.getItems().subscribe(data => {
+      this.success = true;
+      this.items = data
+    },
+      error => this.message = 'Could not retrieve items<br>' + error.error.message);
 
     this.itemForm = this._fb.group({
-      itemName: ['', Validators.required],
-      price: ['', Validators.required],
-      category: ['', Validators.required]
+      itemName: ['item', Validators.required],
+      price: [5.99, Validators.required],
+      category: ['Bed Room', Validators.required]
+    });
+
+    this._route.paramMap.subscribe((params: ParamMap) => {
+      this.message = params.get('status');
     });
   }
 
@@ -55,11 +62,26 @@ export class InventoryComponent implements OnInit {
       }
     }
 
-    this._itemService.addItem(newItem).subscribe(response => console.log(response),
-      error => this.errorMsg = error.error.message);
+    this._itemService.addItem(newItem).subscribe(response => {
+      this.success = true;
+      this.message = 'Item added'
+    },
+      error => this.message = 'Item could not be added. ' + error.error.message);
 
-      this._router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this._router.navigate(['/inventory']);
-    }); 
+    this.ngOnInit();
+    this._itemService.getItems().subscribe(data => this.items = data,
+      error => this.message = 'Could not retrieve items. ' + error.error.message);
+  }
+
+  deleteItem(itemId){
+    this._itemService.deleteItem(itemId).subscribe(response => {
+      this.success = true;
+      this.message = 'Item deleted';
+
+      this._itemService.getItems().subscribe(data => this.items = data,
+        error => this.message = 'Could not retrieve items. ' + error.error.message);
+
+    },
+    error => this.message = 'Could not delete item. ' + error.error.message);
   }
 }

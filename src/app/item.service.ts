@@ -26,6 +26,11 @@ export class ItemService {
       .pipe(catchError(this.errorHandler));
   }
 
+  deleteItem(itemId){
+    return this._http.delete<any>(this._url + "/" + itemId)
+    .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

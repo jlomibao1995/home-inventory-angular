@@ -1,4 +1,9 @@
 <div class="m-3">
+    <div *ngIf="message != null">
+        <div *ngIf="success" class="alert alert-success">{{message}}</div>
+        <div *ngIf="!success" class="alert alert-danger">{{message}}</div>
+    </div>
+    
     <div class="m-3">
         <a class="btn btn-outline-success" data-bs-toggle="collapse" href="#addForm" role="button" aria-expanded="false" aria-controls="collapseExample">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -52,7 +57,7 @@
                 <td>{{item.itemName}}</td>
                 <td>{{item.price}}</td>
                 <td>{{item.owner}}</td>
-                <td><button class="btn btn-danger">
+                <td><button class="btn btn-danger" (click)="deleteItem(item.id)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-trash" viewBox="0 0 16 16">
                             <path
