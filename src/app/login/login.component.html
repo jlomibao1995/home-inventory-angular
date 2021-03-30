@@ -9,13 +9,12 @@
 
   <div class="form-group">
     <label for="">Password</label>
-    <input type="password" formControlName="password" class="form-control" [class.is-invalid]="password.invalid && password.touched">
+    <input type="password" formControlName="password" class="form-control"
+      [class.is-invalid]="password.invalid && password.touched">
     <small [class.d-none]="password.valid || password.untouched" class="text-danger">Enter a password</small>
   </div>
-
-  <div class="row">
-    <div class="col-8"><button class="btn btn-primary m-3 btn-lg" [disabled]="!loginForm.valid">Login</button></div>
-    <div class="col-4"><button (click)="goToSignUp()" class="btn btn-link btn-lg m-3">Sign up</button></div>
-  </div>
+  <div class="text-center"><button class="btn btn-primary m-3 btn-lg" [disabled]="!loginForm.valid">Login</button></div>
 
 </form>
+
+Don't have an account? <a href="/signup">Sign up</a>

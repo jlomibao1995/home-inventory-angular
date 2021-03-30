@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { throwError } from 'rxjs';
@@ -28,6 +28,15 @@ export class ItemService {
 
   deleteItem(itemId){
     return this._http.delete<any>(this._url + "/" + itemId)
+    .pipe(catchError(this.errorHandler));
+  }
+
+  updateItem(itemId, itemName, price){
+    let params = new HttpParams()
+    .set('itemName', itemName)
+    .set('price', price);
+
+    return this._http.put<any>(this._url + "/" + itemId, params)
     .pipe(catchError(this.errorHandler));
   }
 

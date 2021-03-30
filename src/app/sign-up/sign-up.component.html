@@ -31,10 +31,7 @@
             class="text-danger">Enter your name</small>
     </div>
 
-    <div class="row">
-        <div class="col-8"><button [disabled]="signupForm.invalid || created" class="btn btn-primary m-3 btn-lg">Submit</button></div>
-        <div class="col-4"><button (click)="goToLogin()" class="btn btn-link btn-lg m-3">Login</button></div>
-    </div>
+    <div class="text-center"><button [disabled]="signupForm.invalid || created" class="btn btn-primary m-3 btn-lg">Submit</button></div>   
 
 </form>
 
@@ -42,3 +39,5 @@
     <div *ngIf="created" class="alert alert-success">{{message}}</div>
     <div *ngIf="!created" class="alert alert-danger">{{message}}</div>
 </div>
+
+Already have an account? <a href="/login">Login</a>
