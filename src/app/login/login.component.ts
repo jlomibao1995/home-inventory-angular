@@ -10,10 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  status: String;
+
   constructor(private _router: Router, private route: ActivatedRoute,
      private fb: FormBuilder, private _loginService: LoginService ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.status = params['status'];
+    });
+
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]

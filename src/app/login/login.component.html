@@ -1,4 +1,8 @@
 <h1>Login</h1>
+
+<div *ngIf="status == 'unauthorized'" class="alert alert-danger">Authentication failed</div>
+<div *ngIf="status == 'logout'" class="alert alert-info">User logged out</div>
+
 <form class="m-3" [formGroup]="loginForm" (ngSubmit)="login()">
 
   <div class="form-group">

@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'home', component: HomePageComponent},
   {path: 'signup', component: SignUpComponent},
   {path: 'inventory', component: InventoryComponent},
-  {path: 'inventory:id', component:InventoryComponent},
+  {path: 'login/:status', component:LoginComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 

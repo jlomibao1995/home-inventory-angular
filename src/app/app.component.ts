@@ -18,7 +18,7 @@ export class AppComponent{
 
     logout(){
       this._loginService.logout();
-      this._router.navigateByUrl("/");
+      this._router.navigate(['/login', 'logout']);
     }
 
     authenticated(){

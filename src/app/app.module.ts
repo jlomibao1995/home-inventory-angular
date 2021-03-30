@@ -35,8 +35,8 @@ import { CookieService } from 'ngx-cookie-service';
     UserService, 
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    CookieService],
-    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+    CookieService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
