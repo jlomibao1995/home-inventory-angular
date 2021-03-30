@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
       password: ['', Validators.required],
       confirmPassword: [''],
       name: ['', Validators.required]
-    }, { validator: passwordValidator })
+    }, { validators: passwordValidator })
   }
 
   goToLogin(){

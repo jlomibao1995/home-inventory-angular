@@ -15,7 +15,8 @@ import { XhrInterceptor } from './helpers/xhr.interceptor';
 import { BasicAuthInterceptor } from './helpers/basic-auth.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { CookieService } from 'ngx-cookie-service';
-import * as bootstrap from "bootstrap"
+import * as bootstrap from "bootstrap";
+import { MyaccountComponent } from './myaccount/myaccount.component'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import * as bootstrap from "bootstrap"
     routingComponents,
     HomePageComponent,
     SignUpComponent,
-    InventoryComponent
+    InventoryComponent,
+    MyaccountComponent
   ],
   imports: [
     BrowserModule,

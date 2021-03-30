@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { MyaccountComponent } from './myaccount/myaccount.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'signup', component: SignUpComponent},
   {path: 'inventory', component: InventoryComponent},
   {path: 'login/:status', component:LoginComponent},
+  {path: 'myaccount', component:MyaccountComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 

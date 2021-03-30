@@ -1,0 +1,71 @@
+<h1>My Account</h1>
+
+<div *ngIf="message != null">
+    <div *ngIf="success" class="alert alert-success">{{message}}</div>
+    <div *ngIf="!success" class="alert alert-danger">{{message}}</div>
+</div>
+
+<table class="table table-light table-striped">
+    <thead class="table-light">
+        <tr>
+            <th colspan="2">Account Details</th>
+            <td class="text-end"><button class="btn btn-light" (click)="onEditMode()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path
+                            d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                    </svg>
+                </button></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td colspan="2">{{user.name}}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td colspan="2">{{user.email}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<form *ngIf="editMode" [formGroup]="accountForm" (ngSubmit)="saveChanges()">
+
+    <div class="form-group">
+        <label for="">Name</label>
+        <input type="text" class="form-control" formControlName="name"
+            [class.is-invalid]="accountForm.get('name').invalid && accountForm.get('name').touched">
+        <small [class.d-none]="accountForm.get('name').valid || accountForm.get('name').untouched"
+            class="text-danger">Enter your name</small>
+    </div>
+
+    <div class="form-group">
+        <label for="">Email</label>
+        <input type="text" class="form-control" formControlName="email"
+            [class.is-invalid]="accountForm.get('email').invalid && accountForm.get('email').touched">
+        <small [class.d-none]="accountForm.get('email').valid || accountForm.get('email').untouched"
+            class="text-danger">Enter your email</small>
+    </div>
+
+    <div class="form-group">
+        <label for="">Password</label>
+        <input type="password" class="form-control" formControlName="password" placeholder="Leave blank if you would like password to remain the same"
+            (keyup)="passwordRequired()" [class.is-invalid]="accountForm.get('password').invalid && accountForm.get('password').touched">
+        <small [class.d-none]="accountForm.get('password').valid || accountForm.get('password').untouched"
+            class="text-danger">Enter your password</small>
+    </div>
+
+    <div class="form-group">
+        <label for="">Confirm Password</label>
+        <input type="password" class="form-control" formControlName="confirmPassword"
+            [class.is-invalid]="accountForm.errors?.mismatch">
+        <small [class.d-none]="!accountForm.errors?.mismatch" class="text-danger">Passwords do not match</small>
+    </div>
+
+    <div class="row">
+        <div class="col-8"><a class="btn btn-link m-3" href="/myaccount">Cancel</a></div>
+        <div class="col-4"><input [disabled]="accountForm.invalid" type="submit" value="Save"
+                class="btn btn-primary m-3"></div>
+    </div>
+</form>

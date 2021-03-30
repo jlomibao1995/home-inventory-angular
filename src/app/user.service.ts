@@ -1,6 +1,6 @@
 import { User } from './User';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
@@ -22,6 +22,16 @@ export class UserService {
     const headers = { 'content-type': 'application/json'};
 
     return this._http.post<any>(this._url, user, {'headers':headers})
+    .pipe(catchError(this.errorHandler));
+  }
+
+  updateAccount(userId, name, email, password){
+    let params = new HttpParams()
+    .set('name', name)
+    .set('email', email)
+    .set('password', password);
+
+    return this._http.put<any>(this._url + "/" + userId, params)
     .pipe(catchError(this.errorHandler));
   }
 
