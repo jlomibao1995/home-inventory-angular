@@ -56,10 +56,7 @@
                     <label for="">Category</label>
                     <select class="form-select" formControlName="category"
                         [class.is-invalid]="category.invalid && category.touched">
-                        <option value="Bed Room">Bed Room</option>
-                        <option value="Living Room">Living Room</option>
-                        <option value="Kitchen">Kitchen</option>
-                        <option value="Garage">Garage</option>
+                        <option *ngFor="let category of categories;" value="{{category.id}}">{{category.categoryName}}</option>
                     </select>
                     <small [class.d-none]="category.valid || category.untouched" class="text-danger">Enter your item's
                         category</small>
@@ -101,7 +98,6 @@
         </tbody>
     </table>
 
-
     <div *ngIf="editMode">
         <form [formGroup]="editForm" (ngSubmit)="saveChanges()">
             <div class="form-group">
@@ -122,10 +118,7 @@
                 <label for="">Category</label>
                 <select class="form-select" formControlName="category"
                     [class.is-invalid]="editForm.get('category').invalid && editForm.get('category').touched">
-                    <option value="Bed Room">Bed Room</option>
-                    <option value="Living Room">Living Room</option>
-                    <option value="Kitchen">Kitchen</option>
-                    <option value="Garage">Garage</option>
+                    <option *ngFor="let category of categories;" value="{{category.id}}">{{category.categoryName}}</option>
                 </select>
                 <small [class.d-none]="editForm.get('category').valid || editForm.get('category').untouched"
                     class="text-danger">Enter your item's category</small>

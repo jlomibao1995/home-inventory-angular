@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ItemService {
   _url = "http://localhost:8080/inventory/api/v1/item";
+  _urlCat = "http://localhost:8080/inventory/api/v1/category";
 
   constructor(private _http: HttpClient, private _cookieService: CookieService) { }
 
@@ -31,12 +32,18 @@ export class ItemService {
     .pipe(catchError(this.errorHandler));
   }
 
-  updateItem(itemId, itemName, price){
+  updateItem(itemId, itemName, price, category){
     let params = new HttpParams()
     .set('itemName', itemName)
-    .set('price', price);
+    .set('price', price)
+    .set('categoryId', category);
 
     return this._http.put<any>(this._url + "/" + itemId, params)
+    .pipe(catchError(this.errorHandler));
+  }
+
+  getCateogries(){
+    return this._http.get<any>(this._urlCat)
     .pipe(catchError(this.errorHandler));
   }
 

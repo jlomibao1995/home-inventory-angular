@@ -19,6 +19,7 @@ export class InventoryComponent implements OnInit {
   public editMode: Boolean = false;
   public itemToDelete: any;
   private deleteModal: any;
+  public categories: any;
 
   constructor(private _fb: FormBuilder, private _itemService: ItemService, 
     private _router: Router, private _cookieService: CookieService,
@@ -37,33 +38,39 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //initiate modal
     this.deleteModal = new bootstrap.Modal(document.getElementById('deleteItemModal'), {
       backdrop: true,
       keyboard: true,
       focus: true
     });
 
+    //grab items from API
     this._itemService.getItems().subscribe(data => {
       this.success = true;
-      this.items = data
+      this.items = data;
     },
-      error => this.message = 'Could not retrieve items<br>' + error.error.message);
+      error => this.message = 'Could not retrieve items. ' + error.error.message);
 
+      //grab categories from API
+      this._itemService.getCateogries().subscribe(data => {
+        this.categories = data;
+        this.success = true;
+      }, error => 'Could not retrieve categoris. ' + error.error.message)
+
+      //initiate add item form
     this.itemForm = this._fb.group({
       itemName: ['item', Validators.required],
       price: [5.99, Validators.required],
-      category: ['Bed Room', Validators.required]
+      category: [1, Validators.required]
     });
 
+    //initiate edit item form
     this.editForm = this._fb.group({
       id: [0],
       itemName: ['', Validators.required],
       price: [0, Validators.required],
-      category: ['', Validators.required]
-    });
-
-    this._route.paramMap.subscribe((params: ParamMap) => {
-      this.message = params.get('status');
+      category: [0, Validators.required]
     });
   }
 
@@ -72,7 +79,7 @@ export class InventoryComponent implements OnInit {
       itemName: this.itemName.value,
       price: this.price.value,
       category: {
-        categoryName: this.category.value
+        id: this.category.value
       },
       user: {
         email: this._cookieService.get('email')
@@ -105,7 +112,7 @@ export class InventoryComponent implements OnInit {
       id: item.id,
       itemName: item.itemName,
       price: item.price,
-      category:  item.category.categoryName
+      category:  item.category.id
     });
   }
 
@@ -113,8 +120,9 @@ export class InventoryComponent implements OnInit {
     let id = this.editForm.get('id').value;
     let itemName = this.editForm.get('itemName').value;
     let price = this.editForm.get('price').value;
+    let category = this.editForm.get('category').value;
 
-    this._itemService.updateItem(id, itemName, price)
+    this._itemService.updateItem(id, itemName, price, category)
     .subscribe(response => {
       this.ngOnInit();
       this.message = 'Item changes saved';
